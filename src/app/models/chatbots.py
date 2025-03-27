@@ -1,5 +1,5 @@
-from typing import List
-from pydantic import BaseModel, Field
+from typing import List, Optional
+from pydantic import BaseModel
 
 
 class Message(BaseModel):
@@ -7,5 +7,5 @@ class Message(BaseModel):
     message: str
 
 class Conversation(BaseModel):
-    conversation_id: str
+    conversation_id: Optional[str]
     message: List[Message] 
