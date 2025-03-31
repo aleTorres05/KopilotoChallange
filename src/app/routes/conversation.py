@@ -5,17 +5,22 @@ from api.aiChatbot import call_ai
 
 router = APIRouter()
 
+
 @router.post("/", response_model=Conversation)
 async def create_conversation(conversation: Conversation):
 
     conversation_model = conversation.model_dump()
     message_to_ai = conversation_model["message"]
-    conversation_id = conversation_model["conversation_id"] if conversation_model["conversation_id"] else ""
+    conversation_id = (
+        conversation_model["conversation_id"]
+        if conversation_model["conversation_id"]
+        else ""
+    )
     ai_answer = await call_ai(message_to_ai, conversation_id)
-    print(ai_answer)
     saved_conversation = await save_conversation(ai_answer)
 
     return saved_conversation
+
 
 @router.get("/{conversation_id}", response_model=Conversation)
 async def read_conversation(conversation_id: str):
