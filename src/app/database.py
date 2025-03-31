@@ -9,15 +9,18 @@ config = dotenv_values(os.path.join(BASE_DIR, ".env"))
 
 
 class Database:
-    client: MongoClient = None  
+    client: MongoClient
     db = None
+
 
 db = Database()
 
+
 async def connect_to_mongo():
-    db.client = MongoClient(config["MONGODB_CONNECTION_URI"])
-    db.db = db.client[config["DB_NAME"]]
+    db.client = MongoClient(os.environ.get("MONGODB_CONNECTION_URI"))
+    db.db = db.client[os.environ.get("DB_NAME")]
     print("✅ Connected to MongoDB")
+
 
 async def close_mongo_connection():
     db.client.close()
