@@ -20,7 +20,7 @@ async def call_ai(message, conv_id):
     else:
         message_dict = [message_dict]
 
-    client = Groq(api_key=os.environ.get("API_KEY"))
+    client = Groq(api_key=os.getenv("API_KEY"))
 
     chat_completion = client.chat.completions.create(
         messages=message_dict,

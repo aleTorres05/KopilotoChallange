@@ -1,10 +1,6 @@
 import os
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 from pymongo import MongoClient
-
-
-
-config = dotenv_values("../../.env")
 
 
 class Database:
@@ -12,13 +8,13 @@ class Database:
     db = None
 
 
+load_dotenv()
 db = Database()
 
 
 async def connect_to_mongo():
-    db.client = MongoClient(config["MONGODB_CONNECTION_URI"])
-
-    db.db = db.client[config["DB_NAME"]]
+    db.client = MongoClient(os.getenv("MONGODB_CONNECTION_URI"))
+    db.db = db.client[os.getenv("DB_NAME")]
     print("✅ Connected to MongoDB")
 
 
