@@ -6,6 +6,7 @@ class Message(BaseModel):
     role: str = "user"
     message: str
 
+
 class Conversation(BaseModel):
-    conversation_id: Optional[str] | None
-    message: List[Message] | str
+    conversation_id: Optional[str] = None
+    message: Optional[List[Message]] = str

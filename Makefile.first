@@ -1,0 +1,12 @@
+venv/bin/activate: install
+ python3 -m venv venv
+
+
+run: venv/bin/activate
+ ./venv/bin/python3 app.py
+ uvicron main:app
+ 
+
+install: requirements.txt
+    pip install -r requirements.txt
+
