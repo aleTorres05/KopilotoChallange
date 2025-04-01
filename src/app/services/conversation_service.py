@@ -1,5 +1,5 @@
 from database import db
-from models.chatbots import Conversation
+from models.chatbots import ConversationResponse
 from typing import Optional
 from uuid import uuid4
 
@@ -14,6 +14,7 @@ async def get_conversation(conversation_id: str) -> Optional[dict]:
 
 async def save_conversation(conversation):
     conversation_id = conversation["conversation_id"]
+    print("antes:",conversation)
     if conversation_id:    
         existing = await get_conversation(conversation_id)
         
@@ -26,7 +27,8 @@ async def save_conversation(conversation):
         else:
             return "This conversation does not exist"
     else:
-        conversation = Conversation(**conversation)
+        conversation = ConversationResponse(**conversation)
+        print("despues",conversation)
         conversation_id = str(uuid4())
         conversation.conversation_id = conversation_id
         db.db[collection].insert_one(conversation.model_dump()) 
