@@ -19,7 +19,7 @@ async def create_conversation(conversation: ConversationRequest):
         if conversation_model["conversation_id"]
         else ""
     )
-    ai_answer = await aanswer_ai(message_to_ai, conversation_id)
+    ai_answer = await answer_ai(message_to_ai, conversation_id)
     saved_conversation = await save_conversation(ai_answer)
 
     return saved_conversation
