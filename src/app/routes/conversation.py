@@ -1,9 +1,11 @@
-from fastapi import APIRouter, HTTPException
-from models.chatbots import Conversation, Message
+from fastapi import APIRouter, HTTPException, Depends
+from models.chatbots import Conversation
 from services.conversation_service import get_conversation, save_conversation
 from api.aiChatbot import call_ai
+import middleware.middleware as auth
 
-router = APIRouter()
+
+router = APIRouter(dependencies=[Depends(auth.validate_api_key)])
 
 
 @router.post("/", response_model=Conversation)

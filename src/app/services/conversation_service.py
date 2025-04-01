@@ -14,12 +14,10 @@ async def get_conversation(conversation_id: str) -> Optional[dict]:
 
 async def save_conversation(conversation):
     conversation_id = conversation["conversation_id"]
-    # print("con", conversation)
     if conversation_id:    
         existing = await get_conversation(conversation_id)
         
         if existing:
-            # print("ext",existing)
             new_messages = existing["message"] + conversation["message"]
             db.db[collection].update_one(
                 {"conversation_id": conversation_id},
