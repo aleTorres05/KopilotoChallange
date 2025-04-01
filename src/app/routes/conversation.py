@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from models.chatbots import ConversationRequest, ConversationResponse
 from services.conversation_service import get_conversation, save_conversation
-from api.aiChatbot import call_ai
+from api.aiChatbot import answer_ai
 import middleware.middleware as auth
 
 
@@ -19,7 +19,7 @@ async def create_conversation(conversation: ConversationRequest):
         if conversation_model["conversation_id"]
         else ""
     )
-    ai_answer = await call_ai(message_to_ai, conversation_id)
+    ai_answer = await aanswer_ai(message_to_ai, conversation_id)
     saved_conversation = await save_conversation(ai_answer)
 
     return saved_conversation
